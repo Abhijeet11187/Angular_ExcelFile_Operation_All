@@ -1,0 +1,157 @@
+<table style="box-shadow: 10px 10px 20px 10px ;border:none ;border-radius:20px">  
+
+    <tr style="margin-bottom: 50px">
+      <th>ID</th>
+      <th>Emp code</th>
+      <th>Manager Code</th>
+      <th>Employe name</th>
+      <th>Empploye LName</th>
+      <th>Empploye Email</th>
+      <th>Update</th>
+      <th>Delete</th>
+  </tr>
+  <tr *ngFor="let user of allinfo.employees; index as i">
+       <td>{{(i+1)}}</td>
+      <td>{{user.emp_code}}</td>
+      <td>{{user.mng_code}}</td>
+      
+      <td>{{user.empName}}</td>
+      <td>{{user.empLastName}}</td>
+     <td>{{user.empEmail}}</td>
+      <td>
+        <button type="button" class="btn btn-warning" (click)="openModal(template,user,'emp')">Edit</button>
+ 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Enter Values</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">  
+    <form [formGroup]="quickAddForm">
+        <div class="modal-body" >
+            <div class="form-group">
+                <label>Emp Code<input disabled formControlName="empcode" type="text" class="form-control" ></label>
+            </div>
+            <div class="form-group">
+              <label>Mng Code<input  disabled formControlName="mngcode" type="text" class="form-control" ></label>
+          </div>
+          <div class="form-group">
+            <label>First Name<input  formControlName="fname"  type="text" class="form-control" ></label>
+        </div>
+        <div class="form-group">
+          <label>Last Name<input formControlName="lname" type="text" class="form-control" ></label>
+      </div>
+      <div class="form-group">
+        <label>Email<input  formControlName="email" type="text" class="form-control" ></label>
+    </div>
+    <div class="custom-control custom-radio">
+      <label>Active
+        <input type="radio" class="" value="active" formControlName="status"></label><br>
+     <label>Inactive <input type="radio" class="" value="inactive" formControlName="status">    
+      </label>
+    </div>  
+          </div>
+           </form>
+  
+<!-- {{quickAddForm.value |json}} -->
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()" data-dismiss="modal">Close</button>
+        <button  (click)="onClick()" (click)="modalRef.hide()"   type="button" class="btn btn-primary">Save changes</button>
+    </div>
+
+
+
+  </div>
+</ng-template> 
+      </td>
+      <td>
+        <button style="border-radius:60px" (click)="ondelete(i,allinfo.employees)" class="btn btn-danger">Delete</button>
+      </td>
+          
+      
+  </tr>
+  
+  </table>
+
+  <table style="box-shadow: 10px 10px 20px 10px ;border:none ;border-radius:20px;margin-top:2cm">  
+
+    <tr style="margin-bottom: 50px">
+      <th>ID</th>
+      <th>Emp code</th>
+      <th>Manager name</th>
+      <th>manager LName</th>
+      <th>manager Email</th>
+      <th>M Status</th>
+      <th>Update</th>
+      <th>Delete</th>
+  </tr>
+  <tr *ngFor="let user of allinfo.manager ;index as i">
+       <td>{{(i+1)}}</td>
+      <td>{{user.emp_code}}</td>
+      <td>{{user.mngName}}</td>
+      
+      <td>{{user.mngLastName}}</td>
+      
+     <td>{{user.mngEmail}}</td>
+     <td>{{user.mngStatus}}</td>
+     <td>
+      <button type="button" class="btn btn-warning" (click)="openModal(template,user,'mng')">Edit</button>
+
+<ng-template #template>
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Enter Values</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">  
+  <form [formGroup]="quickAddForm">
+      <div class="modal-body" >
+          <div class="form-group">
+              <label>Emp Code<input formControlName="empcode" type="text" class="form-control" ></label>
+          </div>
+          <div class="form-group">
+            <label>Manager Name<input  formControlName="mngcode" type="text" class="form-control" ></label>
+        </div>
+        <div class="form-group">
+          <label>Manager Last name<input  formControlName="fname"  type="text" class="form-control" ></label>
+      </div>
+      <div class="form-group">
+        <label>Manager Email<input formControlName="lname" type="text" class="form-control" ></label>
+      </div>
+  <div class="custom-control custom-radio">
+    <label>Active
+      <input type="radio" class="" value="active" formControlName="status"></label><br>
+   <label>Inactive <input type="radio" class="" value="inactive" formControlName="status">    
+    </label>
+  </div>  
+        </div>
+         </form>
+
+<!-- {{quickAddForm.value |json}} -->
+
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()" data-dismiss="modal">Close</button>
+      <button  (click)="onClick()" (click)="modalRef.hide()"  type="button" class="btn btn-primary">Save changes</button>
+  </div>
+
+
+
+</div>
+</ng-template> 
+    </td>
+      <td>
+        <button style="border-radius:60px" (click)="NOOdelete()" class="btn btn-danger">Delete</button>
+      </td>
+          
+      
+  </tr>
+  
+  </table>
+  <div style="margin-top:2cm">
+    <button class="btn btn-secondary" (click)="onSave()">Save</button>
+    <button class="btn btn-danger" (click)="onDelete()">Cancel</button>
+</div>

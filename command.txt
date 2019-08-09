@@ -1,0 +1,192 @@
+Server..
+
+
+npm init
+
+ npm install --save express
+
+create file server.js
+
+
+\\\\\\\\
+
+const http =require('http');
+
+const port= process.env.PORT || 3000;
+
+const server=http.createServer();
+
+server.listen(port);
+
+///////
+
+
+
+create app.js
+
+/////////
+
+const express =require('express');
+ 
+const app=express();
+
+app.use((req,res,next)=>{
+    res.status(200).json({
+        message:"it works"
+    });
+});
+
+module.exports=app;
+
+/////////
+
+import app to the server.js
+
+//const app=require('./app');
+
+and pass app to the createserver
+
+//const server=http.createServer(app);
+
+
+Check run using 
+
+ terminal :node server
+browser : localhost 3000
+
+
+
+
+
+
+
+==================================================
+
+
+create api folder -> routes folder ->
+
+excl.js
+=============
+const express =require ('express');
+
+const router =express.Router();
+
+
+router.get('/',(req,res,next)=>{
+    res.status(200).json({
+        message:"get requested"
+    })
+})
+
+
+router.post('/',(req,res,next)=>{
+    res.status(200).json({
+        message:"Post requested"
+    })
+})
+
+
+router.delete('/',(req,res,next)=>{
+    res.status(200).json({
+        message:"Delete requested"
+    })
+})
+
+
+module.exports=router;
+
+
+==============
+
+//////In the app.js\\\\\\
+
+
+const excelRoutes=require('./api/routes/excel');
+
+app.use('/excel',excelRoutes);
+
+//======================================
+
+npm install --save-dev nodemon
+
+
+//
+
+in package.json
+
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon server.js"
+  },
+
+////////////////////now use with npm start/////////
+
+
+npm install --save morgan
+
+
+in app.js
+
+const morgan=require('morgan'),
+
+
+app.use(morgan('dev'));   (before handling rq)
+
+/////////////////////////////////
+
+
+
+ npm install --save body-parser
+
+
+//
+in app.js
+
+const bodyparser=require('body-parser');
+
+app.use(bodyparser.urlencoded({extended:false}))
+
+app.use(bodyparser.json());
+
+
+
+//
+
+
+in app.js
+
+
+handle corse
+
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === "OPTIONS") {
+      res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+      return res.status(200).json({});
+    }
+    next();
+  });
+
+
+
+///////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
